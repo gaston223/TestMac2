@@ -3,9 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\UsersFormRequest;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,7 +36,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -40,6 +47,8 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -52,7 +61,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'confirmed'],
         ]);
     }
 
@@ -60,14 +69,38 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return User
      */
     protected function create(array $data)
     {
         return User::create([
             'name' => $data['name'],
+            'lastname' => $data['lastname'],
             'email' => $data['email'],
+            'adress' => $data['adress'],
+            'postcode' => $data['postcode'],
+            'city' => $data['city'],
+            'phone' => $data['phone'],
+            'comment' => $data['comment'],
             'password' => Hash::make($data['password']),
         ]);
+
+
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param UsersFormRequest $request
+     * @return RedirectResponse|Redirector
+     */
+    public function register(UsersFormRequest $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 }

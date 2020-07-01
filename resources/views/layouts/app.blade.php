@@ -19,6 +19,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
+
+    @yield('css')
 </head>
 <body>
     <div id="app">
@@ -90,9 +92,10 @@
                         {{ session()->get('error') }}
                     </div>
                 @endif
+                    @yield('content')
             </div>
-            @yield('content')
         </main>
     </div>
+@yield('scripts')
 </body>
 </html>

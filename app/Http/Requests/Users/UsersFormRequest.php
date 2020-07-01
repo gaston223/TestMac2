@@ -29,6 +29,7 @@ class UsersFormRequest extends FormRequest
             'email' => 'required|email:rfc,dns',
             'phone' => 'required|digits:10',
             'adress' => 'required',
+            'password'=> 'required',
             'postcode' => 'required',
             'city' => 'required|min:2|max:190',
             'comment' => 'required',
@@ -41,6 +42,7 @@ class UsersFormRequest extends FormRequest
         return [
             'email.required' => "L'email est requis",
             'name.required' => "Le prénom est requis",
+            'password.required' => "Le mot de passe est requis",
             'lastname.required' => "Le nom est requis",
             'phone.required' => "Le numéro de téléphone est requis",
             'adress.required' => "L'adresse est requis",
