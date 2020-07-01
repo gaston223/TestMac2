@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Users\UsersFormRequest;
 use App\Http\Requests\Users\UsersUpdateFormRequest;
 use App\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -28,7 +29,7 @@ class UsersFormController extends Controller
      * @param User $user
      * @return RedirectResponse|Redirector
      */
-    public function store(UsersFormRequest $request, User $user)
+    /*public function store(UsersFormRequest $request, User $user)
     {
         User::create([
             'name' => $request->name,
@@ -46,21 +47,27 @@ class UsersFormController extends Controller
 
         return redirect(route('users_edit_info'));
 
-    }
-
+    }*/
 
     /**
      * @param User $user
      * @return Factory|View
+     * @throws AuthorizationException
      */
     public function edit(User $user)
     {
-        return view('users.update')->with('user', $user);
+        //Si l'utilisateur connecté est différent du propriétaire du formulaire
+        //Il ne pourra pas modifier les infos personnelles
+        if (Auth::user()==$user){
+            return view('users.edit', compact('user'));
+        }
+        else {
+            throw new AuthorizationException();
+        }
     }
 
     /**
      * @param UsersUpdateFormRequest $request
-     * @param User $userForm
      * @return RedirectResponse|Redirector
      */
     public function update(UsersUpdateFormRequest $request)
