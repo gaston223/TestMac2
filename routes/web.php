@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Auth::routes();
+
+Route::get('/', 'UsersFormController@create')->name('users_create');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/store-users', 'UsersFormController@store')->name('users_store_form');

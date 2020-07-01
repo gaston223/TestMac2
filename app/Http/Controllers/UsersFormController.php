@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\Users\UsersFormRequest;
+use App\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
+
+class UsersFormController extends Controller
+{
+    /**
+     * @return Factory|View
+     */
+    public function create()
+    {
+        return view('users.create');
+    }
+
+
+    /**
+     * @param UsersFormRequest $request
+     * @return RedirectResponse|Redirector
+     */
+    public function store(UsersFormRequest $request)
+    {
+        User::create([
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'adress' => $request->adress,
+            'city' => $request->city,
+            'postcode' => $request->postcode,
+            'comment' => $request->comment,
+        ]);
+
+        session()->flash('success', 'Votre soucription a été enregistrée avec succès !');
+
+        return redirect(route('users_create'));
+
+    }
+}
