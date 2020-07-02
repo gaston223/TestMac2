@@ -31,32 +31,6 @@ class UsersFormController extends Controller
         return view('users.show')->with('user', auth()->user());
     }
 
-
-    /**
-     * @param UsersFormRequest $request
-     * @param User $user
-     * @return RedirectResponse|Redirector
-     */
-    /*public function store(UsersFormRequest $request, User $user)
-    {
-        User::create([
-            'name' => $request->name,
-            'lastname' => $request->lastname,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'adress' => $request->adress,
-            'password'=>Hash::make($request->password),
-            'city' => $request->city,
-            'postcode' => $request->postcode,
-            'comment' => $request->comment,
-        ]);
-
-        session()->flash('success', 'Votre soucription a été enregistrée avec succès !');
-
-        return redirect(route('users_edit_info'));
-
-    }*/
-
     /**
      * Formulaire de modification
      * @param User $user
