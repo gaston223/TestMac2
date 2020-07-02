@@ -23,6 +23,15 @@ class UsersFormController extends Controller
     }
 
     /**
+     * Page d'accueil
+     * @return Factory|View
+     */
+    public function livewireHome()
+    {
+        return view('users.livewire-home');
+    }
+
+    /**
      * Affiche le Récapitulatif des données personnelles
      * @return Factory|View
      */

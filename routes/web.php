@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'UsersFormController@home')->name('users_home');
+Route::get('/form-livewire', 'UsersFormController@livewireHome')->name('livewire_home');
 Route::get('/show', 'UsersFormController@show')->name('users_show');
 Route::post('/store-users', 'UsersFormController@store')->name('users_store_form');
 Route::put('/update-users', 'UsersFormController@update')->name('users_update_form');
