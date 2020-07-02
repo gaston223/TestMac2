@@ -8,9 +8,9 @@
 </p>
 
 ## Test Mac 2
-Procédure d'installation du projet :
+###Procédure d'installation du projet :
 
-Config Base de données dans .env : 
+####Config Base de données dans .env : 
 
 DB_DATABASE=test-mac2
 
@@ -18,11 +18,15 @@ DB_USERNAME=root
 
 DB_PASSWORD=
 
-Executer les migrations et le seeder : AdminCreateSeeder
+####Executer les migrations et le seeder : AdminCreateSeeder
 
 php artisan migrate --seed
 
-Interface admin : 
+####Lancer le projet sur un serveur local :
+
+php artisan serve
+
+####Interface admin : 
 
 url : /admin ou /login
 
@@ -30,7 +34,7 @@ Email : admin@admin.com
 
 Mot de passe : password
 
-Interface Utilisateur
+####Interface Utilisateur :
 
 url d'accueil : /
 
