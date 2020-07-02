@@ -5,22 +5,30 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Users\UsersFormRequest;
 use App\Http\Requests\Users\UsersUpdateFormRequest;
 use App\User;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class UsersFormController extends Controller
 {
     /**
+     * Page d'accueil
      * @return Factory|View
      */
     public function home()
     {
         return view('users.home');
+    }
+
+    /**
+     * Affiche le Récapitulatif des données personnelles
+     * @return Factory|View
+     */
+    public function show()
+    {
+        return view('users.show')->with('user', auth()->user());
     }
 
 
@@ -50,9 +58,9 @@ class UsersFormController extends Controller
     }*/
 
     /**
+     * Formulaire de modification
      * @param User $user
      * @return Factory|View
-     * @throws AuthorizationException
      */
     public function edit(User $user)
     {
@@ -62,11 +70,12 @@ class UsersFormController extends Controller
             return view('users.edit', compact('user'));
         }
         else {
-            throw new AuthorizationException();
+            abort(403);
         }
     }
 
     /**
+     * Mise a jour des données personnelles
      * @param UsersUpdateFormRequest $request
      * @return RedirectResponse|Redirector
      */
@@ -86,6 +95,6 @@ class UsersFormController extends Controller
 
         session()->flash('success', 'Vos infos ont été modifié avec succès !');
 
-        return redirect(route('home'));
+        return redirect(route('users_home'));
     }
 }

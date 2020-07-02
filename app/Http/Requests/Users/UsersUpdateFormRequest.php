@@ -34,4 +34,22 @@ class UsersUpdateFormRequest extends FormRequest
             'comment' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'email.required' => "L'email est requis",
+            'name.required' => "Le prénom est requis",
+            'lastname.required' => "Le nom est requis",
+            'phone.required' => "Le numéro de téléphone est requis",
+            'adress.required' => "L'adresse est requis",
+            'city.required' => "La ville est requise",
+            'comment.required' => "Le commentaire est requis",
+            'postcode.required' => "Le code postal est requis",
+
+            'email.email' => "L'email n'est pas valide",
+            'phone.digits' => "Le numéro doit être francais !"
+
+        ];
+    }
 }

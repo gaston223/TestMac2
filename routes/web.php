@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'UsersFormController@home')->name('users_home');
-Route::get('/index', 'HomeController@index')->name('users_index');
+Route::get('/show', 'UsersFormController@show')->name('users_show');
 Route::post('/store-users', 'UsersFormController@store')->name('users_store_form');
 Route::put('/update-users', 'UsersFormController@update')->name('users_update_form');
 
@@ -29,5 +29,9 @@ Route::middleware(['auth'])->group(function (){
 });
 
 Route::middleware(['auth', 'admin'])->group(function (){
-    Route::get('admin/home', 'AdminController@home')->name('admin_home');
+    Route::get('admin', 'AdminController@home')->name('admin_home');
+    Route::get('admin/show/{user}', 'AdminController@showProfile')->name('admin_show');
+    Route::get('admin/edit/{user}', 'AdminController@editProfile')->name('admin_edit');
+    Route::put('admin/update-profil-user/{user}', 'AdminController@update')->name('admin_update_profil');
+
 });

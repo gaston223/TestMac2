@@ -16,7 +16,7 @@
 
         @auth()
             <p class="lead">
-                <a class="btn btn-primary btn-lg" href="{{route('users_index')}}" role="button">J'accède à mes informations</a>
+                <a class="btn btn-primary btn-lg" href="{{route('users_show')}}" role="button">J'accède à mes informations</a>
             </p>
             <p class="lead">
                 <a class="btn btn-primary btn-lg" href="{{route('users_edit_info',Auth::user()->id)}}" role="button">Je modifie mes informations</a>
