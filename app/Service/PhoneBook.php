@@ -11,7 +11,7 @@ class PhoneBook{
     public static function searchByName(string $name):array
     {
         return collect(self::contacts())->filter(function ($contact) use($name){
-            return Str::contains(strtolower($contact['name']),$name);
+            return Str::contains(strtolower($contact['name']),strtolower($name));
         })->all() ;
 
     }
